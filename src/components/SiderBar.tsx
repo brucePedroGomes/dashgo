@@ -12,7 +12,7 @@ import {
   RiInputMethodLine,
 } from 'react-icons/ri';
 
-const SiderBar = () => {
+export const SiderBar = () => {
   return (
     <Box as="aside" w="64" mr="8">
       <Stack spacing="12" align="flex-start">
@@ -66,5 +66,3 @@ const SiderBar = () => {
     </Box>
   );
 };
-
-export default SiderBar;
