@@ -13,10 +13,13 @@ import {
   Tbody,
   Text,
 } from '@chakra-ui/react';
-import { RiAddLine, RiEditFill } from 'react-icons/ri';
+import {
+  RiAddLine,
+  RiEditFill,
+} from 'react-icons/ri';
 import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
-import { SiderBar } from '../../components/SiderBar';
+import { Siderbar } from '../../components/Siderbar';
 
 const UserList = () => {
   return (
@@ -30,15 +33,23 @@ const UserList = () => {
         mx="auto"
         px="6"
       >
-        <SiderBar />
+        <Siderbar />
 
-        <Box flex="1" borderRadius={8} bg="gray.800" p="8">
+        <Box
+          flex="1"
+          borderRadius={8}
+          bg="gray.800"
+          p="8"
+        >
           <Flex
             mb="8"
             justify="space-between"
             align="center"
           >
-            <Heading size="lg" fontWeight="normal">
+            <Heading
+              size="lg"
+              fontWeight="normal"
+            >
               Usuários
             </Heading>
 
@@ -48,7 +59,10 @@ const UserList = () => {
               fontSize="sm"
               colorScheme="pink"
               leftIcon={
-                <Icon as={RiAddLine} fontSize="20" />
+                <Icon
+                  as={RiAddLine}
+                  fontSize="20"
+                />
               }
             >
               Criar novo
@@ -57,7 +71,11 @@ const UserList = () => {
           <Table colorScheme="whiteAlpha">
             <Thead>
               <Tr>
-                <Th px="6" color="gray.300" width="8">
+                <Th
+                  px="6"
+                  color="gray.300"
+                  width="8"
+                >
                   <Checkbox colorScheme="pink" />
                 </Th>
                 <Th>Usuário</Th>
@@ -75,7 +93,10 @@ const UserList = () => {
                     <Text fontWeight="bold">
                       Pedro Gomes
                     </Text>
-                    <Text fontSize="sm" color="gray.300">
+                    <Text
+                      fontSize="sm"
+                      color="gray.300"
+                    >
                       pedroleinar@hotmail.com
                     </Text>
                   </Box>
@@ -88,7 +109,10 @@ const UserList = () => {
                     fontSize="sm"
                     colorScheme="none"
                     leftIcon={
-                      <Icon as={RiEditFill} fontSize="16" />
+                      <Icon
+                        as={RiEditFill}
+                        fontSize="16"
+                      />
                     }
                   >
                     Editar

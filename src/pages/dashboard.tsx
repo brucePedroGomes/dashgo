@@ -1,6 +1,6 @@
 import { Header } from '../components/Header';
 
-import SiderBar from '../components/SiderBar';
+import { Siderbar } from '../components/Siderbar';
 import {
   Flex,
   SimpleGrid,
@@ -13,9 +13,12 @@ import dynamic from 'next/dynamic';
 
 import { Props as ReactCharts } from 'react-apexcharts';
 
-const Chart = dynamic(() => import('react-apexcharts'), {
-  ssr: false,
-});
+const Chart = dynamic(
+  () => import('react-apexcharts'),
+  {
+    ssr: false,
+  }
+);
 
 const colors = theme.colors;
 
@@ -77,15 +80,26 @@ const Dashboard = () => {
   return (
     <Flex direction="column" h="100vh">
       <Header />
-      <Flex w="100%" my="6" maxW={1480} mx="auto" px="6">
-        <SiderBar />
+      <Flex
+        w="100%"
+        my="6"
+        maxW={1480}
+        mx="auto"
+        px="6"
+      >
+        <Siderbar />
         <SimpleGrid
           flex="1"
           gap="4"
           minChildWidth="320px"
           align="flex-start"
         >
-          <Box p="8" bg="gray.800" borderRadius={8} pb="4">
+          <Box
+            p="8"
+            bg="gray.800"
+            borderRadius={8}
+            pb="4"
+          >
             <Text fontSize="lg" mb="4">
               Inscritos da semana
             </Text>
@@ -97,7 +111,11 @@ const Dashboard = () => {
             />
           </Box>
 
-          <Box p="8" bg="gray.800" borderRadius={8}>
+          <Box
+            p="8"
+            bg="gray.800"
+            borderRadius={8}
+          >
             <Text fontSize="lg" mb="4">
               Taxa de abertura
             </Text>
