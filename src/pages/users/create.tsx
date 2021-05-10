@@ -5,7 +5,6 @@ import {
   Divider,
   VStack,
   SimpleGrid,
-  HStack,
   Button,
 } from '@chakra-ui/react';
 import { Input } from '../../components/Form/Input';
@@ -16,51 +15,31 @@ const CreateUser = () => {
   return (
     <Box>
       <Header />
-      <Flex
-        w="100%"
-        my="6"
-        maxW={1480}
-        mx="auto"
-        px="6"
-      >
+      <Flex w="100%" my="6" maxW={1480} mx="auto" px="6">
         <Siderbar />
         <Box
           flex="1"
           borderRadius={8}
           bg="gray.800"
-          p="8"
+          p={['6,', '8']}
         >
-          <Heading
-            flex="1"
-            borderRadius={8}
-            bg="gray.800"
-            p="8"
-          >
+          <Heading flex="1" borderRadius={8} bg="gray.800">
             Criar usuário
           </Heading>
-          <Divider
-            my="6"
-            borderColor="gray.700"
-          />
+          <Divider my="6" borderColor="gray.700" />
           <VStack spacing="8">
             <SimpleGrid
               w="100%"
               minChildWidth="240px"
-              spacing="8"
+              spacing={['6,', '8']}
             >
-              <Input
-                name="name"
-                label="Nome completo"
-              />
-              <Input
-                name="email"
-                label="E-mail"
-              />
+              <Input name="name" label="Nome completo" />
+              <Input name="email" label="E-mail" />
             </SimpleGrid>
             <SimpleGrid
               w="100%"
               minChildWidth="240px"
-              spacing="8"
+              spacing={['6,', '8']}
             >
               <Input
                 name="password"
@@ -74,17 +53,11 @@ const CreateUser = () => {
               />
             </SimpleGrid>
           </VStack>
-          <Flex
-            mt="8"
-            gridGap="4"
-            justify="flex-end"
-          >
+          <Flex mt="8" gridGap="4" justify="flex-end">
             <Button colorScheme="whiteAlpha">
               Cancelar
             </Button>
-            <Button colorScheme="pink">
-              Salvar
-            </Button>
+            <Button colorScheme="pink">Salvar</Button>
           </Flex>
         </Box>
       </Flex>

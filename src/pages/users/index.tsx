@@ -12,16 +12,19 @@ import {
   Checkbox,
   Tbody,
   Text,
+  useBreakpointValue,
 } from '@chakra-ui/react';
-import {
-  RiAddLine,
-  RiEditFill,
-} from 'react-icons/ri';
+import { RiAddLine, RiEditFill } from 'react-icons/ri';
 import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
 import { Siderbar } from '../../components/Siderbar';
 
 const UserList = () => {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
   return (
     <Box>
       <Header />
@@ -35,21 +38,13 @@ const UserList = () => {
       >
         <Siderbar />
 
-        <Box
-          flex="1"
-          borderRadius={8}
-          bg="gray.800"
-          p="8"
-        >
+        <Box flex="1" borderRadius={8} bg="gray.800" p="8">
           <Flex
             mb="8"
             justify="space-between"
             align="center"
           >
-            <Heading
-              size="lg"
-              fontWeight="normal"
-            >
+            <Heading size="lg" fontWeight="normal">
               Usuários
             </Heading>
 
@@ -59,10 +54,7 @@ const UserList = () => {
               fontSize="sm"
               colorScheme="pink"
               leftIcon={
-                <Icon
-                  as={RiAddLine}
-                  fontSize="20"
-                />
+                <Icon as={RiAddLine} fontSize="20" />
               }
             >
               Criar novo
@@ -72,20 +64,20 @@ const UserList = () => {
             <Thead>
               <Tr>
                 <Th
-                  px="6"
+                  px={['4', '4,', '6']}
                   color="gray.300"
                   width="8"
                 >
                   <Checkbox colorScheme="pink" />
                 </Th>
                 <Th>Usuário</Th>
-                <Th>Data de cadastro</Th>
+                {isWideVersion && <Th>Data de cadastro</Th>}
                 <Th w="6"></Th>
               </Tr>
             </Thead>
             <Tbody>
               <Tr>
-                <Td px="6">
+                <Td px={['4', '4,', '6']}>
                   <Checkbox colorScheme="pink" />
                 </Td>
                 <Td>
@@ -93,15 +85,12 @@ const UserList = () => {
                     <Text fontWeight="bold">
                       Pedro Gomes
                     </Text>
-                    <Text
-                      fontSize="sm"
-                      color="gray.300"
-                    >
+                    <Text fontSize="sm" color="gray.300">
                       pedroleinar@hotmail.com
                     </Text>
                   </Box>
                 </Td>
-                <Td>04 de Abril,2021</Td>
+                {isWideVersion && <Td>04 de Abril,2021</Td>}
                 <Td>
                   <Button
                     as="a"
@@ -109,13 +98,10 @@ const UserList = () => {
                     fontSize="sm"
                     colorScheme="none"
                     leftIcon={
-                      <Icon
-                        as={RiEditFill}
-                        fontSize="16"
-                      />
+                      <Icon as={RiEditFill} fontSize="16" />
                     }
                   >
-                    Editar
+                    {isWideVersion ? 'Editar' : ''}
                   </Button>
                 </Td>
               </Tr>
