@@ -7,6 +7,7 @@ import {
   SimpleGrid,
   Button,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { Input } from '../../components/Form/Input';
 import { Header } from '../../components/Header';
 import { Siderbar } from '../../components/Siderbar';
@@ -54,9 +55,11 @@ const CreateUser = () => {
             </SimpleGrid>
           </VStack>
           <Flex mt="8" gridGap="4" justify="flex-end">
-            <Button colorScheme="whiteAlpha">
-              Cancelar
-            </Button>
+            <Link href="/users" passHref>
+              <Button colorScheme="whiteAlpha" as="a">
+                Cancelar
+              </Button>
+            </Link>
             <Button colorScheme="pink">Salvar</Button>
           </Flex>
         </Box>
