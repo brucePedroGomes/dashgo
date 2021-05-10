@@ -19,8 +19,6 @@ export const ActiveLink = ({
 
   const isActive = Boolean(href && asPath.includes(href));
 
-  console.log('isActive', isActive);
-
   return (
     <Link {...rest}>
       {cloneElement(children, {
