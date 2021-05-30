@@ -31,20 +31,18 @@ export const Header = () => {
       px="6"
       align="center"
     >
-      {!isWideVersion && (
-        <IconButton
-          aria-label="Open navigation"
-          fontSize="24"
-          variant="unstyled"
-          onClick={onOpen}
-          mr="2"
-          icon={<Icon as={RiMenuLine} />}
-        />
-      )}
+      <IconButton
+        display={{ base: 'inherit', lg: 'none' }}
+        aria-label="Open navigation"
+        fontSize="24"
+        variant="unstyled"
+        onClick={onOpen}
+        mr="2"
+        icon={<Icon as={RiMenuLine} />}
+      />
+
       <Logo />
-
       {isWideVersion && <SearchBox />}
-
       <Flex align="center" ml="auto">
         <NotificationsNav />
         <Profile isWideVersion={isWideVersion} />
