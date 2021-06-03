@@ -15,8 +15,12 @@ import { Siderbar } from '../../components/Siderbar';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation } from 'react-query';
+import { api } from '../../services/api';
+import { queryClient } from '../../services/queryClient';
+import { useRouter } from 'next/router';
 
-type Form = {
+type CreateUser = {
   name: string;
   email: string;
   password: string;
@@ -32,22 +36,47 @@ const createUserFormSchema = yup.object().shape({
   password: yup
     .string()
     .required('Senha obrigatória')
-    .min(8, 'Sua senha deve conter no mínimo 8 caracteres'),
+    .min(6, 'Sua senha deve conter no mínimo 6 caracteres'),
   password_confirmation: yup
     .string()
     .oneOf([null, yup.ref('password')], 'As senhas não coincidem'),
 });
 
 const CreateUser = () => {
+  const router = useRouter();
+
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(createUserFormSchema),
   });
 
   const errors = formState.errors;
 
-  const handleCreateUser: SubmitHandler<Form> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
+  const createUser = useMutation(
+    async (user: CreateUser) => {
+      const { data } = await api.post('users', {
+        user: {
+          ...user,
+          created_at: new Date(),
+        },
+      });
+
+      return data.user;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('users');
+      },
+    }
+  );
+
+  const handleCreateUser: SubmitHandler<CreateUser> = async (
+    values
+  ) => {
+    await createUser.mutateAsync(values);
+
+    router.push('/users');
+
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
   };
 
   return (

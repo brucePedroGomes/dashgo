@@ -1,4 +1,10 @@
-import { createServer, Factory, Model, Response } from 'miragejs';
+import {
+  createServer,
+  Factory,
+  Model,
+  Response,
+  ActiveModelSerializer,
+} from 'miragejs';
 import faker from 'faker';
 
 type User = {
@@ -9,6 +15,9 @@ type User = {
 
 export const makeServer = () => {
   const server = createServer({
+    serializers: {
+      application: ActiveModelSerializer,
+    },
     models: {
       user: Model.extend<Partial<User>>({}),
     },
@@ -51,10 +60,15 @@ export const makeServer = () => {
             'x-total-count': String(totalPages),
           },
           {
-            users: this.serialize(users).users.slice(pageStart, pageEnd),
+            users: this.serialize(users).users.slice(
+              pageStart,
+              pageEnd
+            ),
           }
         );
       });
+
+      this.get('/users/:id');
 
       this.post('/users');
 
