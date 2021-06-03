@@ -16,6 +16,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { RiAddLine, RiEditFill } from 'react-icons/ri';
 import { Header } from '../../components/Header';
@@ -30,27 +31,19 @@ const UserList = () => {
     lg: true,
   });
 
+  const [page, setPage] = useState(1);
+
   const { data, isLoading, error, isFetching } = useUsers();
 
   return (
     <Box>
       <Header />
 
-      <Flex
-        w="100%"
-        my="6"
-        maxWidth={1480}
-        mx="auto"
-        px="6"
-      >
+      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
         <Siderbar />
 
         <Box flex="1" borderRadius={8} bg="gray.800" p="8">
-          <Flex
-            mb="8"
-            justify="space-between"
-            align="center"
-          >
+          <Flex mb="8" justify="space-between" align="center">
             <Heading size="lg" fontWeight="normal">
               Usuários
               {!isLoading && isFetching && (
@@ -64,9 +57,7 @@ const UserList = () => {
                 size="sm"
                 fontSize="sm"
                 colorScheme="pink"
-                leftIcon={
-                  <Icon as={RiAddLine} fontSize="20" />
-                }
+                leftIcon={<Icon as={RiAddLine} fontSize="20" />}
               >
                 Criar novo
               </Button>
@@ -94,9 +85,7 @@ const UserList = () => {
                       <Checkbox colorScheme="pink" />
                     </Th>
                     <Th>Usuário</Th>
-                    {isWideVersion && (
-                      <Th>Data de cadastro</Th>
-                    )}
+                    {isWideVersion && <Th>Data de cadastro</Th>}
                     <Th w="6"></Th>
                   </Tr>
                 </Thead>
@@ -109,20 +98,13 @@ const UserList = () => {
                         </Td>
                         <Td>
                           <Box>
-                            <Text fontWeight="bold">
-                              {user.name}
-                            </Text>
-                            <Text
-                              fontSize="sm"
-                              color="gray.300"
-                            >
+                            <Text fontWeight="bold">{user.name}</Text>
+                            <Text fontSize="sm" color="gray.300">
                               {user.email}
                             </Text>
                           </Box>
                         </Td>
-                        {isWideVersion && (
-                          <Td>{user.createdAt}</Td>
-                        )}
+                        {isWideVersion && <Td>{user.createdAt}</Td>}
                         <Td>
                           <Button
                             as="a"
@@ -130,10 +112,7 @@ const UserList = () => {
                             fontSize="sm"
                             colorScheme="none"
                             leftIcon={
-                              <Icon
-                                as={RiEditFill}
-                                fontSize="16"
-                              />
+                              <Icon as={RiEditFill} fontSize="16" />
                             }
                           >
                             {isWideVersion ? 'Editar' : ''}
@@ -144,7 +123,11 @@ const UserList = () => {
                   })}
                 </Tbody>
               </Table>
-              <Pagination />
+              <Pagination
+                totalCountOfRegisters={200}
+                currentPage={page}
+                onPageChange={setPage}
+              />
             </>
           )}
         </Box>
