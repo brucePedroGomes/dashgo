@@ -14,26 +14,42 @@ import {
   Text,
   useBreakpointValue,
   Spinner,
+  Link,
 } from '@chakra-ui/react';
-import Link from 'next/link';
+
+import NextLink from 'next/link';
 import { useState } from 'react';
 
 import { RiAddLine, RiEditFill } from 'react-icons/ri';
 import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
 import { Siderbar } from '../../components/Siderbar';
+import { api } from '../../services/api';
 
 import { useUsers } from '../../services/hooks/userUsers';
+import { queryClient } from '../../services/queryClient';
 
 const UserList = () => {
+  const [page, setPage] = useState(1);
+  const { data, isLoading, error, isFetching } = useUsers(page);
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
   });
 
-  const [page, setPage] = useState(1);
-
-  const { data, isLoading, error, isFetching } = useUsers(page);
+  const handlePrefetchUser = async (userId: string) => {
+    await queryClient.prefetchQuery(
+      ['user', userId],
+      async () => {
+        const { data } = await api.get(`users/${userId}`);
+        return data;
+      },
+      {
+        staleTime: 1000 * 60 * 5, // 5 minutes
+      }
+    );
+  };
 
   return (
     <Box>
@@ -51,7 +67,7 @@ const UserList = () => {
               )}
             </Heading>
 
-            <Link href="/users/create" passHref>
+            <NextLink href="/users/create" passHref>
               <Button
                 as="a"
                 size="sm"
@@ -61,7 +77,7 @@ const UserList = () => {
               >
                 Criar novo
               </Button>
-            </Link>
+            </NextLink>
           </Flex>
           {isLoading ? (
             <Flex justifyContent="center">
@@ -98,7 +114,17 @@ const UserList = () => {
                         </Td>
                         <Td>
                           <Box>
-                            <Text fontWeight="bold">{user.name}</Text>
+                            <Link
+                              color="purple.400"
+                              onMouseEnter={() =>
+                                handlePrefetchUser(user.id)
+                              }
+                            >
+                              <Text fontWeight="bold">
+                                {user.name}
+                              </Text>
+                            </Link>
+
                             <Text fontSize="sm" color="gray.300">
                               {user.email}
                             </Text>
