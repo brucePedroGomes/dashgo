@@ -1,4 +1,4 @@
-import { createServer, Factory, Model } from 'miragejs';
+import { createServer, Factory, Model, Response } from 'miragejs';
 import faker from 'faker';
 
 type User = {
@@ -35,7 +35,27 @@ export const makeServer = () => {
       this.namespace = 'api';
       this.timing = 720;
 
-      this.get('/users');
+      this.get('/users', function (schema, request) {
+        const { page = 1, per_page = 10 } = request.queryParams;
+
+        const users = schema.all('user');
+
+        const totalPages = users.length;
+
+        const pageStart = (Number(page) - 1) * Number(per_page);
+        const pageEnd = pageStart + Number(per_page);
+
+        return new Response(
+          200,
+          {
+            'x-total-count': String(totalPages),
+          },
+          {
+            users: this.serialize(users).users.slice(pageStart, pageEnd),
+          }
+        );
+      });
+
       this.post('/users');
 
       //reset to avoid conflict with nextjs
